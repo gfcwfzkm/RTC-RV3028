@@ -21,21 +21,23 @@ static uint8_t bin2bcd (uint8_t val)
 	return ((val / 10) << 4) | (val % 10);
 }
 
-enum RV3028_error rv3028_init(RV3028_t *rtc,
-				void *ioInterface, uint8_t (*startTransaction)(void*),
-				uint8_t (*sendBytes)(void*,uint8_t,uint8_t*,uint8_t),
-				uint8_t (*getBytes)(void*,uint8_t,uint8_t*,uint8_t),
-				uint8_t (*endTransaction)(void*))
+void rv3028_initStruct(RV3028_t *rtc,
+			void *ioInterface, uint8_t (*startTransaction)(void*),
+			uint8_t (*sendBytes)(void*,uint8_t,uint8_t*,uint16_t),
+			uint8_t (*getBytes)(void*,uint8_t,uint8_t*,uint16_t),
+			uint8_t (*endTransaction)(void*))
 {
-	uint8_t regRead;
-	
 	rtc->ioInterface = ioInterface;
 	rtc->startTransaction = startTransaction;
 	rtc->sendBytes = sendBytes;
 	rtc->getBytes = getBytes;
 	rtc->endTransaction = endTransaction;
-	rtc->error = RV3028_NO_ERROR;
-	
+}
+
+enum RV3028_error rv3028_init(RV3028_t *rtc)
+{
+	uint8_t regRead;
+	rtc->error = RV3028_NO_ERROR;	
 	
 	regRead = rv3028_readReg(rtc, RV3028_R_ID);
 	rtc->HID = regRead >> 4;

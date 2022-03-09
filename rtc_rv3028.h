@@ -155,11 +155,13 @@ typedef struct {
 	uint8_t year;
 }RV3028_TIME_t;
 
-enum RV3028_error rv3028_init(RV3028_t *rtc,
-				void *ioInterface, uint8_t (*startTransaction)(void*),
-				uint8_t (*sendBytes)(void*,uint8_t,uint8_t*,uint8_t),
-				uint8_t (*getBytes)(void*,uint8_t,uint8_t*,uint8_t),
-				uint8_t (*endTransaction)(void*));
+void rv3028_initStruct(RV3028_t *rtc,
+			void *ioInterface, uint8_t (*startTransaction)(void*),
+			uint8_t (*sendBytes)(void*,uint8_t,uint8_t*,uint16_t),
+			uint8_t (*getBytes)(void*,uint8_t,uint8_t*,uint16_t),
+			uint8_t (*endTransaction)(void*));
+
+enum RV3028_error rv3028_init(RV3028_t *rtc);
 
 void rv3028_writeReg(RV3028_t *rtc, uint8_t regAddr, uint8_t regVal);
 
