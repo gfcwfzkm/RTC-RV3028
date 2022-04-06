@@ -136,11 +136,11 @@ typedef struct {
 	uint8_t (*sendBytes)(void*,			// Send data function pointer: InterfacePointer,
 						uint8_t,		// Address of the PortExpander (8-Bit Address Format!),
 						uint8_t*,		// Pointer to send buffer,
-						uint8_t);		// Amount of bytes to send
+						uint16_t);		// Amount of bytes to send
 	uint8_t (*getBytes)(void*,			// Get data function pointer:InterfacePointer,
 						uint8_t,		// Address of the PortExpander (8-Bit Address Format!),
 						uint8_t*,		// Pointer to receive buffer,
-						uint8_t);		// Amount of bytes to receive
+						uint16_t);		// Amount of bytes to receive
 	uint8_t (*endTransaction)(void*);	// Finish the transaction / Release IO/Peripheral
 }RV3028_t;
 
